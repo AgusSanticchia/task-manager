@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path="/" element= {<h1>Home Page</h1>} />
-      <Route path="/task/new" element= {<h1>New Page</h1>} />
+      <Route path="/task/new" element= {<h1>Tasks Page</h1>} />
     </Routes>   
     </BrowserRouter>
   )
