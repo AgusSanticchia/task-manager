@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { updateTask } from "../api/tasks";
 
@@ -12,7 +11,7 @@ function TaskCard({ task }) {
         navigate(`/tasks/${task._id}`);
       }}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between rounded-md">
         <h1 className="font-bold text-2xl">{task.title}</h1>
         <button
           onClick={async (e) => {
@@ -30,7 +29,7 @@ function TaskCard({ task }) {
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
-            className={`w-6 h-6 ${task.completed ? "text-green-500" : ""}`}
+            className={`w-6 h-6 ${task.completed ? "text-green-600" : ""}`}
             viewBox="0 0 24 24"
           >
             <path

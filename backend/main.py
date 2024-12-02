@@ -1,13 +1,14 @@
-from fastapi import FastAPI
-from routes.tasks import task
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from routes.tasks import task
 from decouple import config
+
 app = FastAPI()
 
-print(config('FRONTEND_URL'))
+print(config("FRONTEND_URL"))
 
 origins = [
-    config('FRONTEND_URL'),
+    config("FRONTEND_URL"),
 ]
 
 app.add_middleware(
@@ -17,9 +18,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-def welcome():
-    return {"message": "Welcome to my API"}
 
 app.include_router(task)

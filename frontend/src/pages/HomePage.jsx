@@ -1,25 +1,29 @@
-import { useEffect, useState} from "react"
+import { useEffect, useState } from "react";
 import TaskList from "../components/TaskList";
+import { fetchTasks } from "../api/tasks";
 
-function HomePage(){
-    const [tasks, setTasks] = useState([]);
+function HomePage() {
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const [pendingTasks, setPendingTasks] = useState([]);
 
-    useEffect(()=>{
-        async function fetchTasks(){
-            const res = await fetch("http://localhost:8000/api/tasks");
-            console.log(res);
-            setTasks(res.data);
-        }
-        fetchTasks();
-    },[])
+  useEffect(() => {
+    fetchTasks()
+      .then((res) => {
+        setCompletedTasks(res.data.filter((task) => task.completed));
+        setPendingTasks(res.data.filter((task) => !task.completed));
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-    return(
+  return (
     <>
-        <h1 className="text-2xl p-2 m-3 text-start">Tasks List</h1>
-        <TaskList tasks={tasks} className=" flex flex-col gap-2"/>
+      <h3 className="text-xl font-bold text-gray-400 mb-7 p-1">Pending Tasks</h3>
+      <TaskList tasks={pendingTasks} />
+
+      <h3 className="text-xl font-bold text-gray-400 mb-7 p-1">Completed Task</h3>
+      <TaskList tasks={completedTasks} />
     </>
-        
-    )
+  );
 }
 
 export default HomePage;

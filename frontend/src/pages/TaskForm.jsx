@@ -45,25 +45,25 @@ function TaskForm() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-[calc(100vh-20rem)] ">
+    <div className="flex items-center justify-center p-1 m-20 tracking-wide ">
       <div>
-        <form className="bg-zinc-950 p-10 rounded-md" onSubmit={handleSubmit}>
-          <h1 className="flex items-center justify-center text-3xl font-bold my-4 tracking-widest">Create Task</h1>
+        <form className="bg-sky-800 border-white p-10 rounded-lg" onSubmit={handleSubmit}>
+          <h1 className="text-3xl font-bold my-4 text-center">Create Task</h1>
           <input
             type="text"
             placeholder="Title"
-            className="block p-2 py-2 px-3 mb-4 w-full text-black rounded-lg font-mono"
+            className="block p-2 py-2 px-3 mb-4 w-96 text-black font-mono tracking-wide rounded-lg text-start"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
             autoFocus
           />
           <textarea
             placeholder="Description"
-            className="block p-2 py-2 px-3 mb-4 w-full text-black rounded-lg font-mono"
+            className="block p-2 py-2 px-3 mb-4 w-96 h-60 text-black font-mono tracking-wide rounded-lg"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
           ></textarea>
-          <button className="text-center bg-green-600 hover:text-gray-800 text-white font-bold p-2 px-4 rounded-lg w-full tracking-widest">
+          <button className="tracking-widest bg-green-700 hover:bg-green-600 text-white  font-bold py-2 px-4 rounded-lg w-full">
             {params.id ? "Update" : "Create"}
           </button>
         </form>

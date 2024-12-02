@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException
-
 from database import (
     get_all_tasks,
     get_one_task,
@@ -11,6 +10,10 @@ from database import (
 from models import Task, UpdateTask
 
 task = APIRouter()
+
+@task.get("/ping")	
+def welcome():
+    return {"message": "Welcome to the API!"}
 
 @task.get('/api/tasks')
 async def get_tasks():
@@ -51,3 +54,4 @@ async def remove_task(id: str):
     if response:
         return "Successfully deleted task"
     raise HTTPException(404, f"There is no task with the id {id}")
+    
