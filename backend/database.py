@@ -41,7 +41,7 @@ async def get_all_tasks() -> list[Task]:
 
 
 async def update_task(id: str, data: UpdateTask) -> Task:
-    task_data = {k: v for k, v in data.dict(exclude_unset=True).items() if v is not None}
+    task_data = {k: v for k, v in data.model_dump(exclude_unset=True).items() if v is not None}
     await collection.update_one({"_id": ObjectId(id)}, {"$set": task_data})
     updated_task = await collection.find_one({"_id": ObjectId(id)})
     if updated_task:

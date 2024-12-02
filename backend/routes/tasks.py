@@ -1,23 +1,53 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, HTTPException
 
-app = FastAPI()
+from database import (
+    get_all_tasks,
+    get_one_task,
+    get_one_task_id,
+    create_task,
+    update_task,
+    delete_task
+)
+from models import Task, UpdateTask
 
-@app.get('/api/tasks')
+task = APIRouter()
+
+@task.get('/api/tasks')
 async def get_tasks():
-    return {"data": "All tasks"}
+    response = await get_all_tasks()
+    return response
 
-@app.get('/api/tasks/{id}')
-async def get_task(id: int):
-    return {"data": id}
+@task.get('/api/tasks/{id}', response_model=Task)
+async def get_task(id: str):
+    response = await get_one_task_id(id)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no task with the id {id}")
 
-@app.post('/api/tasks')
-async def create_task():
-    return {"data": "Task created"}
 
-@app.put('/api/tasks/{id}')
-async def update_task(id: int, data):
-    return {"data": f"Task {id} has been updated"}
+@task.post('/api/tasks', response_model=Task)
+async def save_task(task: Task):
+    taskFound = await get_one_task(task.title)
+    if taskFound:
+        raise HTTPException(409, "Task already exists")
 
-@app.delete('/api/tasks/{id}')
-async def delete_task(id: int):
-    return {"data": f"Task {id} has been deleted"}
+    response = await create_task(task.model_dump())
+    print(response)
+    if response:
+        return response
+    raise HTTPException(400, "Something went wrong")
+
+@task.put('/api/tasks/{id}', response_model=Task)
+async def put_task(id: str, data: UpdateTask):
+    response = await update_task(id, data)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no task with the id {id}")
+    
+
+@task.delete('/api/tasks/{id}')
+async def remove_task(id: str):
+    response = await delete_task(id)
+    if response:
+        return "Successfully deleted task"
+    raise HTTPException(404, f"There is no task with the id {id}")

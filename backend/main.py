@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes.task import task
+from routes.tasks import task
 
 app = FastAPI()
 @app.get("/")
