@@ -65,8 +65,23 @@ function TaskForm(){
                 <button>{
                     params.id ? "Update Task" : "Save Task"}
                 </button>
-            
             </form>
+            {params.id && (
+                <button
+                    className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded mt-5"
+                    onClick={async () => {
+                    try {
+                        const res = await deleteTask(params.id);
+                        console.log(res);
+                        navigate("/");
+                    } catch (error) {
+                        console.error(error);
+                    }
+                    }}
+                >
+                Delete
+                </button>
+            )}
         </div>
     )
 }
