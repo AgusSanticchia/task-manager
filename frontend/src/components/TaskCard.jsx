@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 
 function TaskCard() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     return (
         <div
         key={task.id}

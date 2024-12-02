@@ -6,8 +6,8 @@ function HomePage(){
 
     useEffect(()=>{
         async function fetchTasks(){
-            const res = await fetch("http://localhost:8000/tasks");
-            console.log(res)
+            const res = await fetch("http://localhost:8000/api/tasks");
+            console.log(res);
             setTasks(res.data);
         }
         fetchTasks();
@@ -22,4 +22,4 @@ function HomePage(){
     )
 }
 
-export default HomePage
+export default HomePage;

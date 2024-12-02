@@ -8,7 +8,7 @@ function App() {
       <div className="container mx-auto px-10">
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />}hola />
+          <Route path="/" element={<HomePage />}/>
           <Route path="/tasks/:id" element={<TaskForm />}/>
           <Route path="/tasks/new" element={<TaskForm />}/>
         </Routes>
@@ -18,4 +18,4 @@ function App() {
 
 }
 
-export default App
+export default App;

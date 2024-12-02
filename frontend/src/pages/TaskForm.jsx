@@ -1,34 +1,48 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"    
+import { useParams, useNavigate } from "react-router-dom"    
 import axios from "axios"
 
 function TaskForm(){
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const params = useParams()
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const params = useParams();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        await axios.post("http://localhost:4000/tasks", {
-            title,
-            description
-        })
-        console.log(res)
-        e.target.reset()
+        e.preventDefault();
+        try {
+            if (params.id){
+                const res = await axios.post(`http://localhost:8000/api/tasks/${params.id}`, {
+                    title,
+                    description
+                });
+                console.log(res);
+            } else {
+                await axios.put(`http://localhost:8000/api/tasks/${params.id}`, {
+                    title,
+                    description
+                });
+                console.log(res);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        e.target.reset();
+        navigate("/");
     }
     
     useEffect(() => {
         if(params.id){
-            fetchTask()
+            fetchTask();
         }
 
         async function fetchTask() {
-            const res= await axios.get(`http://localhost:8000/tasks/${params.id}`)
-            console.log(res)
-            setTitle(res.data.title)
-            setDescription(res.data.description)
+            const res= await axios.get(`http://localhost:8000/api/tasks/${params.id}`)
+            console.log(res);
+            setTitle(res.data.title);
+            setDescription(res.data.description);
         }
-    }, [])
+    }, []);
 
     return(
         <div className="flew items-center justify-center h-[calc(100vh-10rem)]">
@@ -57,4 +71,4 @@ function TaskForm(){
     )
 }
 
-export default TaskForm
+export default TaskForm;
