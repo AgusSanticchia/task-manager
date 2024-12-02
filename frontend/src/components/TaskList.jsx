@@ -1,14 +1,13 @@
-import TaskCard from "../components/TaskCard"
+import TaskCard from "./TaskCard";
 
-function TaskList({tasks}) {
+function TaskList({ tasks }) {
   return (
-    <div className="grid grid-cols-3 gap-4">
-        {
-         tasks.map(task => (
-             <TaskCard task={task}/>
-         ))
-        }
-    </div> 
-  )
+    <div className="grid grid-cols-4 gap-4">
+      {tasks.map((task, i) => {
+        return <TaskCard task={task} key={i} />;
+      })}
+    </div>
+  );
 }
+
 export default TaskList;

@@ -15,8 +15,8 @@ function HomePage(){
 
     return(
     <>
-        <h1>Tasks</h1>
-        <TaskList tasks={tasks}/>
+        <h1 className="text-2xl p-2 m-3 text-start">Tasks List</h1>
+        <TaskList tasks={tasks} className=" flex flex-col gap-2"/>
     </>
         
     )
