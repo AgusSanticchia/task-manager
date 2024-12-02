@@ -21,6 +21,8 @@ function TaskForm(){
                     type="text" 
                     placeholder="Title"
                     className="block py-2 px-3 mb-4 w-full text-black"
+                    onChange={(e) => setTitle(e.target.value)}
+                    autoFocus
                 />
                 <textarea
                     pñaceholder="Write a description"
