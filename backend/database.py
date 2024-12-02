@@ -28,13 +28,14 @@ async def get_all_tasks():
 
 
 async def create_task(task):
+    task = {k: v for k, v in task.items() if v is not None}
     new_task = await collection.insert_one(task)
     created_task = await collection.find_one({"_id": new_task.inserted_id})
     return created_task
 
 
 async def update_task(id: str, data: UpdateTask):
-    task = {k: v for k, v in data.model_dump().items() if v is not None}
+    task = {k: v for k, v in data.dict().items() if v is not None}
     await collection.update_one({"_id": ObjectId(id)}, {"$set": task})
     document = await collection.find_one({"_id": ObjectId(id)})
     return document

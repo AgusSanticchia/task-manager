@@ -34,8 +34,9 @@ async def save_task(task: Task):
     if taskFound:
         raise HTTPException(409, "Task already exists")
 
-    response = await create_task(task.model_dump())
-    print(response)
+    task_dict = task.model_dump()
+    
+    response = await create_task(task_dict)
     if response:
         return response
     raise HTTPException(400, "Something went wrong")
